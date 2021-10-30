@@ -15,15 +15,9 @@ Start-BitsTransfer -Source $urls
 
 $list = Get-ChildItem -Recurse . -Include *.zip
 
-# mkdir "unzipped"
-
-# $dest = Get-Childitem -Path "unzipped"
-
-
 foreach ($file in $list) {
     Expand-Archive -Path $file -DestinationPath .\\unzipped -Force
 }
-
 
 # Get-ChildItem -Path . | Expand-Archive -Path .\*.zip -Force
 
