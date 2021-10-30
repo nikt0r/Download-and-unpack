@@ -10,7 +10,6 @@
 #     Start-BitsTransfer -Source $url -Destination $dest
 # }
 
-
 Start-BitsTransfer -Source $urls
 
 $list = Get-ChildItem -Recurse . -Include *.zip
