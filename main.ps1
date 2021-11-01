@@ -29,3 +29,5 @@ $match = @{label="Match";expression={$_.Matches.Value}}
 $parent = @{label="Folder";expression={Split-Path $_.Path -Parent | Split-Path -Leaf}}
 
 $Success | Select-Object -Property $match,$parent,Filename
+
+# http://localhost:8080/flowable-work/actuator/mappings
