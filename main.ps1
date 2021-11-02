@@ -31,3 +31,4 @@ $parent = @{label="Folder";expression={Split-Path $_.Path -Parent | Split-Path -
 $Success | Select-Object -Property $match,$parent,Filename
 
 # http://localhost:8080/flowable-work/actuator/mappings
+# https://stackoverflow.com/questions/12782371/powershell-https-get-using-client-certificate-from-certstore
