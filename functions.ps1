@@ -1,4 +1,5 @@
 function Get-CaseOrProcess {
+    [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
         [ValidatePattern("^(CAS|PRC)-")]
