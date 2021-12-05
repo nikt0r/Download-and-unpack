@@ -1,0 +1,43 @@
+GET http://localhost:8080/flowable-work/process-api/repository/process-definitions?key=processKey
+Content-Type: application/json
+Accept: */*
+
+###
+
+// 'outcome: true' skips start form
+// name is optional
+
+POST http://localhost:8080/flowable-work/platform-api/process-instances?createTestDefinition=true
+Content-Type: application/json
+Accept: */*
+
+{
+    "outcome": true,
+    "processDefinitionId": "PRC-canYouStartTest:1:55147a50-3e25-11ec-8ab9-676db83802b4",
+    "formOutcome": true,
+    "name": "Test 01",
+    "values": {
+        "requiredField": "I have a value",
+    
+        "bla": {
+            "aaa": "kenny.cole"
+        }
+    }
+}
+
+###
+
+// It returns process id
+// Access test:
+// http://localhost:8080/flowable-work/#/work/mine/process/<process_id>/inspect/inspectTab/testdetails
+
+###
+
+// get inflight tests for process definition key
+
+GET http://localhost:8080/flowable-work/inspect-api/inflight-test-models?scopeDefinitionKey=PRC-canYouStartTest:1:cb0abc46-2783-11ec-a61f-000c29aeab86
+Content-Type: application/json
+Accept: */*
+
+###
+
