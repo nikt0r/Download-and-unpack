@@ -46,10 +46,10 @@ $json2 = @'
 
 $taskForm = @'
 {
-    "id": "FRM-4d3f00f1-27d3-11ec-a61f-000c29aeab86",
+    "id": "FRM-2655de08-27dd-11ec-a61f-000c29aeab86",
     "name": "Access request form",
     "key": "accessRequestForm",
-    "version": 21,
+    "version": 22,
     "metadata": {
         "key": "accessRequestForm",
         "name": "Access request form",
@@ -401,7 +401,7 @@ $taskForm = @'
                                                     },
                                                     "lowerRight": {
                                                         "x": 984,
-                                                        "y": 193
+                                                        "y": 173
                                                     }
                                                 },
                                                 "stencilSuperIds": [
@@ -530,7 +530,7 @@ $taskForm = @'
                                                                                                         "ignore": false,
                                                                                                         "visible": true,
                                                                                                         "enabled": true,
-                                                                                                        "isRequired": false,
+                                                                                                        "isRequired": true,
                                                                                                         "label": "Text",
                                                                                                         "i18n": {
                                                                                                             "en_us": {
@@ -565,7 +565,7 @@ $taskForm = @'
                                                                 },
                                                                 "lowerRight": {
                                                                     "x": 944,
-                                                                    "y": 100
+                                                                    "y": 123
                                                                 }
                                                             },
                                                             "stencilSuperIds": [
@@ -585,7 +585,52 @@ $taskForm = @'
                                                         "extraSettings": {
                                                             "serverValidationMethod": "GET",
                                                             "layoutDefinition": {
-                                                                "rows": []
+                                                                "rows": [
+                                                                    {
+                                                                        "cols": [
+                                                                            {
+                                                                                "designInfo": {
+                                                                                    "bounds": {
+                                                                                        "upperLeft": {
+                                                                                            "x": 15,
+                                                                                            "y": 25
+                                                                                        },
+                                                                                        "lowerRight": {
+                                                                                            "x": 905,
+                                                                                            "y": 73
+                                                                                        }
+                                                                                    },
+                                                                                    "stencilSuperIds": [
+                                                                                        "base-date",
+                                                                                        "Component"
+                                                                                    ],
+                                                                                    "stencilId": "cloud-date",
+                                                                                    "customStencilId": null
+                                                                                },
+                                                                                "labelAlign": "top",
+                                                                                "value": "{{date}}",
+                                                                                "size": 12,
+                                                                                "ignore": false,
+                                                                                "visible": true,
+                                                                                "enabled": true,
+                                                                                "isRequired": true,
+                                                                                "label": "Date",
+                                                                                "i18n": {
+                                                                                    "en_us": {
+                                                                                        "label": "Date"
+                                                                                    }
+                                                                                },
+                                                                                "id": "date1",
+                                                                                "extraSettings": {
+                                                                                    "enableTime": false,
+                                                                                    "storeWithoutTime": true,
+                                                                                    "timeInterval": 15
+                                                                                },
+                                                                                "type": "date"
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
                                                             }
                                                         },
                                                         "type": "panel"
@@ -620,5 +665,119 @@ $taskForm = @'
 # $json2 | ConvertFrom-Json | Select -ExpandProperty roles | Format-Table -RepeatHeader
 
 # /platform-api/tasks/TSK-9692fa60-27d3-11ec-a61f-000c29aeab86/form
+$output = @()
+function FindRequired {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true, ValueFromPipeline = $True)]
+        [PSCustomObject]$object
+    )
 
-$taskForm | ConvertFrom-Json | Select -ExpandProperty rows | Select -ExpandProperty cols | Where {$_.label -ne $null -and $_.isRequired -eq $true} | Format-Table label,isRequired,type
+    # $object | ForEach-Object {
+        
+    #     # If ($_.rows) {
+    #     #     $_ | select -ExpandProperty rows | select -ExpandProperty cols | where { $null -ne $_.label -and $_.isRequired -eq $true } | Format-Table label, isRequired, type
+    #     #     $_.rows.cols | FindRequired
+
+    #     # }
+
+    #     # ElseIf ($_.PSObject.Properties.TypeNameOfValue -eq "System.Management.Automation.PSCustomObject") {
+    #     #     $_ | select -ExpandProperty $_.PSObject.Properties.name | FindRequired
+    #     #     # $_.PSObject.Properties
+    #     # }
+
+    #     # $_.GetType()
+    #     $a = $_ | Get-Member -MemberType NoteProperty
+    #     If ($a -is [Object[]]) {
+    #         $a | FindRequired
+    #     }
+
+    #     If ($_.rows) {
+    #         $_.rows.cols
+    #     }
+
+    # }
+
+
+    
+    # $object.PSObject.Properties | ForEach-Object {
+        
+    #     If ($_.TypeNameOfValue -eq "System.Management.Automation.PSCustomObject") {
+    #         $global:a = $_.Value
+    #         $_.Value | FindRequired
+    #     }
+    #     ElseIf ($_.TypeNameOfValue -eq "System.Object[]") {
+
+    #         $global:a = $_.Value
+    #         $_.Value | ForEach-Object {
+    #             $_ | FindRequired
+    #             }
+    #     } ElseIf ($_.Name -eq "isRequired") {
+    #         $_.Value
+    #         $a
+    #     }
+    # }
+
+    # $object | ForEach-Object {
+    #     If ($_.PSObject.Properties.TypeNameOfValue -eq "System.Management.Automation.PSCustomObject") {
+    #         $_ | FindRequired
+    #     }
+    #     ElseIf ($_.PSObject.Properties.TypeNameOfValue -eq "System.Object[]") {
+    #         $_ | ForEach-Object { $_ | FindRequired }
+    #     } ElseIf ($_.PSObject.Properties.Name -eq "isRequired") {
+    #         $_.label
+    #     }
+    # }
+
+
+    #   ElseIf {
+    #     $object | select -ExpandProperty rows | select -ExpandProperty cols | ForEach-Object {
+
+    #         If ($_.type -eq "subform") {
+    #             FindRequired $_.extraSettings.layoutDefinition
+    #         }
+    #         ElseIf ($_.type -as [PSCustomObject]) {
+    #             FindRequired $_
+    #         }
+    #         Else {
+    #             $_ | where { $null -ne $_.label -and $_.isRequired -eq $true } | Format-Table label, isRequired, type
+
+    #         }
+    
+    # }
+
+    
+    $object | ForEach-Object {
+        
+        If ($_.rows) {
+            $expandedCols = $_ | select -ExpandProperty rows | select -ExpandProperty cols
+            # $expandedCols | where { $null -ne $_.label -and $_.isRequired -eq $true } | Format-Table label, isRequired, type, id
+            $expandedCols | where { $null -ne $_.label -and $_.isRequired -eq $true } | ForEach-Object {
+                $obj = New-Object PSObject -Property @{Label = $_.label; Required = $_.isRequired; Type = $_.type; ID = $_.id }
+                $script:output += $obj
+            }
+            $expandedCols | FindRequired
+    
+        }
+        elseif ($_.extraSettings -and $_.extraSettings.layoutDefinition) {
+            $_ | select -ExpandProperty extraSettings | select -ExpandProperty layoutDefinition | FindRequired
+        }
+        elseif ($_.extraSettings -and $_.extraSettings.sections) {
+            $_ | select -ExpandProperty extraSettings | select -ExpandProperty sections | ForEach-Object { $_ | FindRequired }
+        } 
+    }
+
+}
+    
+$taskForm | ConvertFrom-Json | FindRequired
+$output | Format-Table Label, Required, Type, ID
+# ($taskForm | ConvertFrom-Json).PSObject.Properties | ForEach-Object {
+
+#     If ($_.TypeNameOfValue -eq "System.Object[]") {
+#         $_.Value.PSObject.Properties 
+#     }
+# }
+
+# $taskForm | ConvertFrom-Json | select -ExpandProperty rows | select -ExpandProperty cols | where { $null -ne $_.label -and $_.isRequired -eq $true } | Format-Table label, isRequired, type
+
+
