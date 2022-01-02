@@ -41,3 +41,23 @@ Accept: */*
 
 ###
 
+POST http://localhost:8080/flowable-work/process-api/query/historic-task-instances
+Content-Type: application/json
+Accept: */*
+
+{
+    "processInstanceIdWithChildren": "PRC-80232b1e-286c-11ec-9564-0f56dd490e07",
+    "includeTaskLocalVariables": true
+}
+
+###
+
+POST http://localhost:8080/flowable-work/cmmn-api/cmmn-query/historic-task-instances
+Content-Type: application/json
+Accept: */*
+
+{
+    "caseInstanceIdWithChildren": "CAS-0653d2ba-2864-11ec-9564-0f56dd490e07",
+    "includeTaskLocalVariables": true
+}
+
