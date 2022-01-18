@@ -75,3 +75,7 @@ Map map = [
 JsonNode node = new ObjectMapper().convertValue(map, JsonNode.class)
 
 println node
+
+String nodeStr = new ObjectMapper().writeValueAsString(map)
+
+println nodeStr
