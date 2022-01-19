@@ -79,3 +79,8 @@ println node
 String nodeStr = new ObjectMapper().writeValueAsString(map)
 
 println nodeStr
+
+String date = "2022-01-02T10:39:35.111Z"
+
+long diff = LocalDate.now() - LocalDate.parse(date, DateTimeFormatter.ISO_DATE_TIME)
+println diff
